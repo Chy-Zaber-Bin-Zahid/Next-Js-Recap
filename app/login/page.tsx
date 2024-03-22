@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { BiHide } from "react-icons/bi";
 import { RxEyeOpen } from "react-icons/rx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -13,9 +13,12 @@ import { useRouter } from "next/navigation";
 const Login: React.FC = () => {
   const router = useRouter();
 
-  // login check
-  const token = localStorage.getItem("token");
-  if (token) router.push("/companies");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/companies");
+    }
+  }, []);
 
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
@@ -78,7 +81,6 @@ const Login: React.FC = () => {
     mutation.mutate(bodyData, {
       onError: (error) => {
         console.error("Mutation failed:", error);
-        // Additional error handling logic if needed
       },
     });
   };
@@ -95,36 +97,36 @@ const Login: React.FC = () => {
             height={120}
           ></Image>
         </div>
-        <div className="bg-customGray-loginBack flex flex-col border-t-4 border-customBlue-borderTop p-8">
+        <div className="bg-[#F8F9FB] flex flex-col border-t-4 border-[#0763E3] p-8">
           <h1 className="text-xl font-semibold">Login</h1>
-          <p className="text-sm text-customGray-textP mb-6">
-            Continue with pattern50
-          </p>
+          <p className="text-sm text-[#989DA4] mb-6">Continue with pattern50</p>
           <div className="flex flex-col gap-2">
-            <label className="text-customGray-6C6E72 text-sm" htmlFor="">
+            <label className="text-[#6C6E72] text-sm" htmlFor="">
               Email Address
             </label>
             <input
-              className="py-2 px-3 text-sm border rounded border-customGray-inputBorder"
+              className="py-2 px-3 text-sm border rounded border-[#EBEBEE]"
               type="text"
               placeholder="Email Address"
               {...register("email")}
             />
             {errors.email && (
-              <p className="text-red text-sm">{errors.email.message}</p>
+              <p className="text-red-600 text-sm">{errors.email.message}</p>
             )}
-            <label className="text-customGray-6C6E72 text-sm" htmlFor="">
+            <label className="text-[#6C6E72] text-sm" htmlFor="">
               Password
             </label>
             <div className="relative">
               <input
-                className="py-2 pl-3 pr-6 text-sm border rounded border-customGray-inputBorder w-full"
+                className="py-2 pl-3 pr-6 text-sm border rounded border-[#EBEBEE] w-full"
                 type={passwordVisible ? "text" : "password"}
                 placeholder="Password"
                 {...register("password")}
               />
               {errors.password && (
-                <p className="text-red text-sm">{errors.password.message}</p>
+                <p className="text-red-600 text-sm">
+                  {errors.password.message}
+                </p>
               )}
               {!passwordVisible ? (
                 <BiHide
@@ -141,13 +143,13 @@ const Login: React.FC = () => {
           </div>
           <a
             href=""
-            className="text-sm text-right mt-4 underline text-customBlue-borderTop "
+            className="text-sm text-right mt-4 underline text-[#0763E3] "
           >
             Forgot password?
           </a>
           <button
             type="submit"
-            className="text-white bg-customBlue-borderTop rounded mt-6 text-sm p-2"
+            className="text-white bg-[#0763E3] rounded mt-6 text-sm p-2"
           >
             {isPending ? "Loading" : "Login"}
           </button>
