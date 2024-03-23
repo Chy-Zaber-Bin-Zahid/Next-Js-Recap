@@ -4,8 +4,8 @@ import Slider from "../components/Slider";
 
 const Layout = ({ children }) => {
   return (
-    <div className="flex h-screen p-6 pl-0 gap-5">
-      <div className="w-fit">
+    <div className="flex h-screen gap-5">
+      <div className="w-fit h-full overflow-y-auto">
         <Slider />
       </div>
 

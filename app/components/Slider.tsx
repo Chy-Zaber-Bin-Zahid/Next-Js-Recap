@@ -8,11 +8,10 @@ import { usePathname } from "next/navigation";
 function Slider() {
   const data = sliderData();
   const currentUrl = usePathname();
-  console.log(currentUrl);
 
   return (
     <>
-      <div className="w-fit flex flex-col gap-8 bg-[#FAFBFC] px-6 text-[#757D87] ">
+      <div className="w-fit flex flex-col gap-7 bg-[#FAFBFC] p-6  h-full text-[#757D87]">
         <Image
           src="/images/Main Logo 1.png"
           alt="Main Logo"

@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Spinner } from "@phosphor-icons/react";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -64,7 +66,6 @@ const Login: React.FC = () => {
       });
     },
     onSuccess: (data) => {
-      console.log(data);
       localStorage.setItem("token", data.data.auth.accessToken);
       router.push("/companies");
     },
@@ -87,14 +88,15 @@ const Login: React.FC = () => {
   const { isPending, isSuccess } = mutation;
 
   return (
-    <main className="h-screen flex justify-center items-center mx-auto">
-      <form onSubmit={handleSubmit(submitData)} className="">
-        <div className="flex justify-center items-center p-4 max-w-full">
+    <main className="h-screen flex justify-center items-center">
+      <form onSubmit={handleSubmit(submitData)} className="w-full max-w-96">
+        <div className="flex justify-center items-center p-4">
           <Image
             src="/images/Main Logo 1.png"
             alt="Main Logo"
             width={120}
             height={120}
+            priority
           ></Image>
         </div>
         <div className="bg-[#F8F9FB] flex flex-col border-t-4 border-[#0763E3] p-8">
@@ -118,7 +120,7 @@ const Login: React.FC = () => {
             </label>
             <div className="relative">
               <input
-                className="py-2 pl-3 pr-6 text-sm border rounded border-[#EBEBEE] w-full"
+                className="py-2 pl-3 pr-7 text-sm border rounded border-[#EBEBEE] w-full"
                 type={passwordVisible ? "text" : "password"}
                 placeholder="Password"
                 {...register("password")}
@@ -141,17 +143,23 @@ const Login: React.FC = () => {
               )}
             </div>
           </div>
-          <a
-            href=""
+          <Link
+            href="/forgot-password"
             className="text-sm text-right mt-4 underline text-[#0763E3] "
           >
             Forgot password?
-          </a>
+          </Link>
           <button
             type="submit"
-            className="text-white bg-[#0763E3] rounded mt-6 text-sm p-2"
+            className="text-white bg-[#0763E3] rounded mt-6 text-sm p-2 flex justify-center items-center gap-2"
           >
-            {isPending ? "Loading" : "Login"}
+            {isPending ? (
+              <>
+                Loading <Spinner className="animate-spin" size={20} />
+              </>
+            ) : (
+              "Login"
+            )}
           </button>
         </div>
       </form>

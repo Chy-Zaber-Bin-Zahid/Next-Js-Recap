@@ -13,52 +13,58 @@ import {
 } from "@phosphor-icons/react";
 
 export default function sliderData() {
+  const iconSize = 28;
+
   const data = [
     {
-      icon: <HouseSimple size={28} />,
+      icon: <HouseSimple size={iconSize} />,
       title: "Overview",
-      link: "/companies/houseSimple",
+      link: "/companies/overview",
     },
     {
-      icon: <Buildings size={28} />,
+      icon: <Buildings size={iconSize} />,
       title: "Companies",
-      link: "/companies/buildings",
+      link: "/companies/company/?page=1&size=10&query=",
     },
     {
-      icon: <Basket size={28} />,
+      icon: <Basket size={iconSize} />,
       title: "Products",
-      link: "/companies/basket",
+      link: "/companies/products",
     },
     {
-      icon: <Receipt size={28} />,
+      icon: <Receipt size={iconSize} />,
       title: "Financial",
-      link: "/companies/receipt",
+      link: "/companies/financial",
     },
     {
-      icon: <ClipboardText size={28} />,
+      icon: <ClipboardText size={iconSize} />,
       title: "Reports",
-      link: "/companies/clipboardText",
+      link: "/companies/reports",
     },
     {
-      icon: <UserCircle size={28} />,
+      icon: <UserCircle size={iconSize} />,
       title: "Users",
-      link: "/companies/userCircle",
+      link: "/companies/users",
     },
     {
-      icon: <AddressBook size={28} />,
+      icon: <AddressBook size={iconSize} />,
       title: "Roles",
-      link: "/companies/AddressBook",
+      link: "/companies/roles",
     },
     {
-      icon: <UsersThree size={28} />,
+      icon: <UsersThree size={iconSize} />,
       title: "Team",
-      link: "/companies/UsersThree",
+      link: "/companies/team",
     },
-    { icon: <Coins size={28} />, title: "Rates", link: "/companies/coins" },
     {
-      icon: <Link size={28} />,
+      icon: <Coins size={iconSize} />,
+      title: "Rates",
+      link: "/companies/rates",
+    },
+    {
+      icon: <Link size={iconSize} />,
       title: "Technologies",
-      link: "/companies/link",
+      link: "/companies/technologies",
     },
   ];
 
