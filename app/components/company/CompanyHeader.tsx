@@ -42,13 +42,13 @@ function CompanyHeader() {
   const totalPages = Math.ceil((data?.data?.count || 0) / Number(size));
   let whichSide = "right";
 
-  if (currentPage <= 3) {
-    whichSide = "right";
-  } else if (currentPage > 3 && currentPage === totalPages - 3) {
-    whichSide = "middle";
-  } else {
-    whichSide = "left";
-  }
+  // if () {
+  //   whichSide = "right";
+  // } else if () {
+  //   whichSide = "middle";
+  // } else {
+  //   whichSide = "left";
+  // }
 
   console.log(currentPage, whichSide);
 
@@ -161,7 +161,7 @@ function CompanyHeader() {
             {"<-"}
           </button>
 
-          {whichSide === "right" && (
+          {currentPage <= 3 && (
             <>
               {Array.from({ length: Math.min(totalPages, 4) }, (_, index) => (
                 <button
@@ -189,7 +189,7 @@ function CompanyHeader() {
             </>
           )}
 
-          {whichSide === "left" && (
+          {currentPage >= totalPages -3 && currentPage <= totalPages  && (
             <>
               <button
                 key={1}
@@ -217,9 +217,8 @@ function CompanyHeader() {
             </>
           )}
 
-          {whichSide === "middle" && (
+          {currentPage > 3 && currentPage === totalPages - 3 && (
             <>
-              {/* Render the first button */}
               <button
                 key={1}
                 className={currentPage === 1 ? "bg-[#3A83E9] text-white" : ""}
@@ -227,14 +226,10 @@ function CompanyHeader() {
               >
                 1
               </button>
-
-              {/* Render ellipsis */}
               <span>...</span>
-
-              {/* Render the middle four buttons */}
               {Array.from({ length: 5 }, (_, index) => (
                 <button
-                  key={index + 2} // Add 2 because the first button has key 1
+                  key={index + 2}
                   className={
                     currentPage === currentPage - 2 + index
                       ? "bg-[#3A83E9] text-white"
@@ -245,11 +240,7 @@ function CompanyHeader() {
                   {currentPage - 2 + index}
                 </button>
               ))}
-
-              {/* Render ellipsis */}
               <span>...</span>
-
-              {/* Render the last button */}
               <button
                 key={totalPages}
                 className={
