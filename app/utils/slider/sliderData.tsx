@@ -68,5 +68,7 @@ export default function sliderData() {
     },
   ];
 
+
+
   return data;
 }

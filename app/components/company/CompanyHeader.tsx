@@ -40,17 +40,6 @@ function CompanyHeader() {
   });
 
   const totalPages = Math.ceil((data?.data?.count || 0) / Number(size));
-  let whichSide = "right";
-
-  // if () {
-  //   whichSide = "right";
-  // } else if () {
-  //   whichSide = "middle";
-  // } else {
-  //   whichSide = "left";
-  // }
-
-  console.log(currentPage, whichSide);
 
   useEffect(() => {
     router.push(
@@ -144,12 +133,13 @@ function CompanyHeader() {
           </>
         )}
       </div>
-      <div className="flex  justify-between pt-5 text-gray-500">
+
+      <div className="flex justify-between pt-5 text-gray-500">
         <span>
           Showing{" "}
           {data && data.data?.data?.length < 10
             ? (currentPage - 1) * 10 + data.data?.data.length
-            : "0"}{" "}
+            : currentPage * 10}{" "}
           of {data ? data.data?.count : "0"}
         </span>
 
@@ -189,7 +179,7 @@ function CompanyHeader() {
             </>
           )}
 
-          {currentPage >= totalPages -3 && currentPage <= totalPages  && (
+          {currentPage >= totalPages - 2 && currentPage <= totalPages && (
             <>
               <button
                 key={1}
@@ -217,7 +207,7 @@ function CompanyHeader() {
             </>
           )}
 
-          {currentPage > 3 && currentPage === totalPages - 3 && (
+          {currentPage > 3 && currentPage < totalPages - 2 && (
             <>
               <button
                 key={1}
@@ -227,19 +217,20 @@ function CompanyHeader() {
                 1
               </button>
               <span>...</span>
-              {Array.from({ length: 5 }, (_, index) => (
+              {Array.from({ length: 3 }, (_, index) => (
                 <button
                   key={index + 2}
                   className={
-                    currentPage === currentPage - 2 + index
+                    currentPage === currentPage - 1 + index
                       ? "bg-[#3A83E9] text-white"
                       : ""
                   }
-                  onClick={() => setCurrentPage(currentPage - 2 + index)}
+                  onClick={() => setCurrentPage(currentPage - 1 + index)}
                 >
-                  {currentPage - 2 + index}
+                  {currentPage - 1 + index}
                 </button>
               ))}
+
               <span>...</span>
               <button
                 key={totalPages}
