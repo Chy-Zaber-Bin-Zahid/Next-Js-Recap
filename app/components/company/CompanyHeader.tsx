@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import CompanySkeleton from "./CompanySkeleton";
 import CvaClsxButton from "./../CvaClsxButton";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import axiosInstance from "@/app/utils/axiosConfig/axiosConfig";
 
 function CompanyHeader() {
   const { register, handleSubmit } = useForm<FormData>();
@@ -23,18 +24,12 @@ function CompanyHeader() {
   const [inputState, setInputState] = useState<string>(
     searchParams.get("query") ?? ""
   );
-  const base64Credentials = localStorage.getItem("token");
+  // const base64Credentials = localStorage.getItem("token");
   const { isFetching, isError, refetch, data } = useQuery({
     queryKey: ["tableData"],
     queryFn: () => {
-      return axios.get(
-        `http://192.168.0.168:5000/company/list?page=${currentPage}&size=${size}&query=${inputState}`,
-        {
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${base64Credentials}`,
-          },
-        }
+      return axiosInstance.get(
+        `/company/list?page=${currentPage}&size=${size}&query=${inputState}`
       );
     },
   });
@@ -143,12 +138,13 @@ function CompanyHeader() {
           of {data ? data.data?.count : "0"}
         </span>
 
-        <div className="border flex gap-2">
+        <div className="border flex">
           <button
+            className="px-2"
             disabled={currentPage === 1}
             onClick={() => setCurrentPage((prev) => prev - 1)}
           >
-            {"<-"}
+            {"<"}
           </button>
 
           {currentPage <= 3 && (
@@ -157,7 +153,9 @@ function CompanyHeader() {
                 <button
                   key={index}
                   className={
-                    currentPage === index + 1 ? "bg-[#3A83E9] text-white" : ""
+                    currentPage === index + 1
+                      ? "bg-[#3A83E9] text-white px-2"
+                      : "px-2"
                   }
                   onClick={() => setCurrentPage(index + 1)}
                 >
@@ -169,7 +167,9 @@ function CompanyHeader() {
                 <button
                   key="last"
                   className={
-                    currentPage === totalPages ? "bg-[#3A83E9] text-white" : ""
+                    currentPage === totalPages
+                      ? "bg-[#3A83E9] text-white px-2"
+                      : "px-2"
                   }
                   onClick={() => setCurrentPage(totalPages)}
                 >
@@ -183,7 +183,9 @@ function CompanyHeader() {
             <>
               <button
                 key={1}
-                className={currentPage === 1 ? "bg-[#3A83E9] text-white" : ""}
+                className={
+                  currentPage === 1 ? "bg-[#3A83E9] text-white px-2" : "px-2"
+                }
                 onClick={() => setCurrentPage(1)}
               >
                 1
@@ -196,8 +198,8 @@ function CompanyHeader() {
                   key={index + 2}
                   className={
                     currentPage === totalPages - 3 + index
-                      ? "bg-[#3A83E9] text-white"
-                      : ""
+                      ? "bg-[#3A83E9] text-white px-2"
+                      : "px-2"
                   }
                   onClick={() => setCurrentPage(totalPages - 3 + index)}
                 >
@@ -211,7 +213,9 @@ function CompanyHeader() {
             <>
               <button
                 key={1}
-                className={currentPage === 1 ? "bg-[#3A83E9] text-white" : ""}
+                className={
+                  currentPage === 1 ? "bg-[#3A83E9] text-white px-2" : "px-2"
+                }
                 onClick={() => setCurrentPage(1)}
               >
                 1
@@ -222,8 +226,8 @@ function CompanyHeader() {
                   key={index + 2}
                   className={
                     currentPage === currentPage - 1 + index
-                      ? "bg-[#3A83E9] text-white"
-                      : ""
+                      ? "bg-[#3A83E9] text-white px-2"
+                      : "px-2"
                   }
                   onClick={() => setCurrentPage(currentPage - 1 + index)}
                 >
@@ -235,7 +239,9 @@ function CompanyHeader() {
               <button
                 key={totalPages}
                 className={
-                  currentPage === totalPages ? "bg-[#3A83E9] text-white" : ""
+                  currentPage === totalPages
+                    ? "bg-[#3A83E9] text-white px-2"
+                    : "px-2"
                 }
                 onClick={() => setCurrentPage(totalPages)}
               >
@@ -247,8 +253,9 @@ function CompanyHeader() {
           <button
             disabled={currentPage === Math.ceil(data?.data.count! / 10)}
             onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="px-2"
           >
-            {"->"}
+            {">"}
           </button>
         </div>
       </div>

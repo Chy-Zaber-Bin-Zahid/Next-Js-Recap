@@ -3,7 +3,6 @@ import Image from "next/image";
 import { BiHide } from "react-icons/bi";
 import { RxEyeOpen } from "react-icons/rx";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,9 +10,15 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Spinner } from "@phosphor-icons/react";
+import { useDispatch, useSelector } from "react-redux";
+import { apiResponse } from "../redux/loggingSlice";
+import axiosInstance from "../utils/axiosConfig/axiosConfig";
 
 const Login: React.FC = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
+
+  const data = useSelector((state: any) => console.log(state.logging.data));
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -51,22 +56,13 @@ const Login: React.FC = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   // react query
-
   const mutation = useMutation({
     mutationFn: (data: FormData) => {
-      const authName = "65d6e54dd2d038abc102b4b2";
-      const authPass = "897cf996-ec96-4707-9c4d-2f25d64565be";
-      const base64Credentials = btoa(authName + ":" + authPass);
-
-      return axios.post("http://192.168.0.168:5000/auth/sign-in", data, {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Basic ${base64Credentials}`,
-        },
-      });
+      return axiosInstance.post("/auth/sign-in", data);
     },
     onSuccess: (data) => {
       localStorage.setItem("token", data.data.auth.accessToken);
+      dispatch(apiResponse(data.data.user));
       router.push("/companies");
     },
   });
