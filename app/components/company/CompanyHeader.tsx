@@ -1,20 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { PlusCircle, MagnifyingGlass, X, User } from "@phosphor-icons/react";
 import { useForm } from "react-hook-form";
 import CompanySkeleton from "./CompanySkeleton";
 import CvaClsxButton from "./../CvaClsxButton";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import axiosInstance from "@/app/utils/axiosConfig/axiosConfig";
+import ConfigureAxiosInstance from "@/app/utils/axiosConfig/axiosConfig";
 
 function CompanyHeader() {
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit } = useForm();
 
   const searchParams = useSearchParams();
   const size = searchParams.get("size");
   const currentPath = usePathname();
+  const axiosInstance = ConfigureAxiosInstance();
 
   const router = useRouter();
 

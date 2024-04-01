@@ -12,13 +12,15 @@ import Link from "next/link";
 import { Spinner } from "@phosphor-icons/react";
 import { useDispatch, useSelector } from "react-redux";
 import { apiResponse } from "../redux/loggingSlice";
-import axiosInstance from "../utils/axiosConfig/axiosConfig";
+// import axiosInstance from "../utils/axiosConfig/axiosConfig";
+import ConfigureAxiosInstance from './../utils/axiosConfig/axiosConfig';
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const axiosInstance = ConfigureAxiosInstance()
 
-  const data = useSelector((state: any) => console.log(state.logging.data));
+  // const data = useSelector((state: any) => console.log(state.logging.data));
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -62,9 +64,14 @@ const Login: React.FC = () => {
     },
     onSuccess: (data) => {
       localStorage.setItem("token", data.data.auth.accessToken);
+      localStorage.setItem("refresh", data.data.auth.refreshToken);
       dispatch(apiResponse(data.data.user));
       router.push("/companies");
     },
+    // onError: (error) => {
+      
+    //   console.error("Error:", error);
+    // },
   });
 
   const submitData = async (data: FormData) => {

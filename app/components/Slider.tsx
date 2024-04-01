@@ -20,6 +20,7 @@ function Slider() {
   const handleLogout = () => {
     setIsPending(true);
     localStorage.removeItem("token");
+    localStorage.removeItem("refresh");
     dispatch(logOut());
   };
 
@@ -28,7 +29,7 @@ function Slider() {
       router.push("/login");
     }
     setIsPending(false);
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   return (

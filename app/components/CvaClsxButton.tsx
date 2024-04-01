@@ -4,7 +4,7 @@ import clsx from "clsx";
 import React, { ReactNode } from "react";
 
 interface ButtonProps {
-  intent: "primary" | "secondary";
+  intent: "primary" | "secondary" | "slider";
   size: "small" | "medium" | "large";
   disabled?: boolean;
   animate?: boolean;
@@ -19,11 +19,12 @@ const button = cva(["bg-[#3A83E9]", "rounded-md", "text-white"], {
     intent: {
       primary: ["bg-red-600", "border-transparent"],
       secondary: ["bg-[#3A83E9]"],
+      slider: ["bg-black", "text-white"],
     },
     size: {
       small: ["text-sm", "py-1", "px-2"],
-      medium: ["text-base", "py-2", "px-2"],
-      large: ["text-lg", "py-1", "px-2"],
+      medium: ["text-base", "py-2", "px-4"],
+      large: ["text-lg", "py-1", "px-4"],
     },
   },
 });

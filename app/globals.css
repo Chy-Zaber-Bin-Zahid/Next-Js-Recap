@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+.react-tel-input .form-control{
+
+
+  width : 280px !important;
+}
