@@ -4,6 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import ConfigureAxiosInstance from "@/app/utils/axiosConfig/axiosConfig";
 import { useInView } from "react-intersection-observer";
 import { Spinner } from "@phosphor-icons/react";
+import { InsideData } from "../utils/type/scroll";
 
 export default function InfinityScroll() {
   const axiosInstance = ConfigureAxiosInstance();
@@ -42,7 +43,7 @@ export default function InfinityScroll() {
     <div className="flex flex-col gap-4 justify-center items-center p-4 relative">
       {data?.pages.map((page: any, index: number) => (
         <div className="flex flex-col gap-4" key={index}>
-          {page.data.data.map((data: any, idx: number) => (
+          {page.data.data.map((data: InsideData, idx: number) => (
             <div
               ref={idx === page.data.data.length - 1 ? ref : undefined}
               className="bg-gray-200 rounded-md p-4 w-80"
