@@ -10,6 +10,7 @@ import CvaClsxButton from "../CvaClsxButton";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { usePathname, useRouter } from "next/navigation";
 
 type Props = {};
 
@@ -21,6 +22,13 @@ const DetailsTable = (props: Props) => {
   ];
   const [startDate, setStartDate] = useState(null);
 
+  const router = useRouter();
+  const currentPath = usePathname();
+
+  const handleUpdate = () => {
+    router.push(`${currentPath}/update`);
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex justify-between items-center gap-2">
@@ -28,7 +36,7 @@ const DetailsTable = (props: Props) => {
         <div className="flex gap-3 justify-center items-center">
           <div className="flex gap-2 justify-center items-center relative ">
             <DatePicker
-              className="pl-8 py-1.5 border"
+              className="pl-8 py-1.5 border rounded"
               placeholderText={`Pick a start date - end date`}
               selected={startDate}
               onChange={(date) => setStartDate(date)}
@@ -38,8 +46,13 @@ const DetailsTable = (props: Props) => {
               size={20}
             />
           </div>
-          <Select className="w-[170px]" options={options} />
+          <Select
+            placeholder="Filter by Work type"
+            className="w-[210px]"
+            options={options}
+          />
           <CvaClsxButton
+            onClick={() => handleUpdate()}
             className="flex gap-2 justify-center items-center"
             intent="secondary"
             size="medium"

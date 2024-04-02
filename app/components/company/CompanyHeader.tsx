@@ -50,7 +50,7 @@ function CompanyHeader() {
 
   return (
     <>
-      <div className="flex flex-col p-6 pl-0">
+      <div className="flex flex-col p-6">
         <div className="flex justify-between">
           <h1 className="text-sm text-[#3A83E9] font-semibold">Companies</h1>
           <h1 className="text-sm rounded-full text-[#757D87] bg-[#F4F4F5] p-2 font-semibold">
