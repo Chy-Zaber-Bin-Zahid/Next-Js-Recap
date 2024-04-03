@@ -63,8 +63,8 @@ const UpdateRateSheet = (props: Props) => {
               <p>Billing Rate: $ 140 /hr</p>
             </div>
           </div>
-          <div className="font-semibold flex flex-col gap-2 ">
-            <h1>
+          <div className=" flex flex-col gap-2 ">
+            <h1 className="font-semibold">
               Team Member <span className="text-red-500">*</span>
             </h1>
             <Select
@@ -78,8 +78,8 @@ const UpdateRateSheet = (props: Props) => {
               options={options}
             />
           </div>
-          <div className="font-semibold flex flex-col gap-2 ">
-            <h1>
+          <div className=" flex flex-col gap-2 pb-4">
+            <h1 className="font-semibold">
               Work Type <span className="text-red-500">*</span>
             </h1>
             <Select
@@ -94,13 +94,13 @@ const UpdateRateSheet = (props: Props) => {
             </h1>
             <div className="relative font-normal text-sm">
               <DatePicker
-                className="pl-8 py-1.5 border rounded w-full"
+                className="pl-8 py-2.5 border rounded w-full"
                 placeholderText={`Pick a start date`}
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
               />
               <CalendarBlank
-                className="absolute top-2 left-2 cursor-pointer"
+                className="absolute top-2.5 left-2 cursor-pointer"
                 size={20}
               />
             </div>
@@ -109,13 +109,13 @@ const UpdateRateSheet = (props: Props) => {
             <h1>End Date</h1>
             <div className=" relative font-normal text-sm">
               <DatePicker
-                className="pl-8 py-1.5 border rounded w-full"
+                className="pl-8 py-2.5 border rounded w-full"
                 placeholderText={`Pick a end date`}
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
               />
               <CalendarBlank
-                className="absolute top-2 left-2 cursor-pointer"
+                className="absolute top-2.5 left-2 cursor-pointer"
                 size={20}
               />
             </div>

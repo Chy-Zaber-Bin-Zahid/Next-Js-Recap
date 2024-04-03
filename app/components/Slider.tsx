@@ -77,7 +77,7 @@ function Slider() {
         </div>
 
         <CvaClsxButton
-          className="flex justify-center items-center gap-2"
+          className="flex justify-center items-center gap-2 text-white"
           onClick={handleLogout}
           intent="primary"
           size="large"

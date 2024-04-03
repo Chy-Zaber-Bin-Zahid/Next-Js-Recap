@@ -5,22 +5,46 @@ import { usePathname, useRouter } from "next/navigation";
 
 export default function Products() {
   const router = useRouter();
-  const currentPath = usePathname()
+  const currentPath = usePathname();
 
-  const handleDetails = () => {
-    router.push(`${currentPath}/details`);
+  const handleDetails = (param) => {
+    if (param === "rate") {
+      router.push(`${currentPath}/rateSheetDetails`);
+    } else if (param === "create") {
+      router.push(`${currentPath}/create`);
+    } else {
+      router.push(`${currentPath}/details`);
+    }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col gap-4 justify-center items-center h-screen">
       <CvaClsxButton
         onClick={() => {
-          handleDetails();
+          handleDetails("rate");
+        }}
+        intent="secondary"
+        size="large"
+      >
+        Rate Sheet Details Page
+      </CvaClsxButton>
+      <CvaClsxButton
+        onClick={() => {
+          handleDetails("details");
         }}
         intent="secondary"
         size="large"
       >
         Details Page
+      </CvaClsxButton>
+      <CvaClsxButton
+        onClick={() => {
+          handleDetails("create");
+        }}
+        intent="secondary"
+        size="large"
+      >
+        Create Page
       </CvaClsxButton>
     </div>
   );

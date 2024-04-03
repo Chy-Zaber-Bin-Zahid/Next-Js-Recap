@@ -82,7 +82,7 @@ const DetailsTable = (props: Props) => {
           Search
         </CvaClsxButton>
       </form>
-      <div className="grid grid-cols-7 gap-x-2 text-[#455F82] font-semibold text-sm bg-[#F8F9FB] py-3 px-5 border-b-2">
+      <div className="grid grid-cols-7 gap-x-2 text-[#4D6486] font-semibold text-sm bg-[#F8F9FB] py-3 px-5 border-b-2">
         <h1>ROLE</h1>
         <h1>MEMBER</h1>
         <h1>INTERNAL</h1>
@@ -98,7 +98,7 @@ const DetailsTable = (props: Props) => {
         <div>$ 103.15</div>
         <div>15 Oct 2023</div>
         <div>-</div>
-        <div>Part time</div>
+        <div className="px-2 py-1 rounded-md bg-[#F8F9FB] w-fit">Part time</div>
       </div>
     </div>
   );
