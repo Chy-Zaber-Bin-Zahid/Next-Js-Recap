@@ -1,7 +1,7 @@
 import React from "react";
 import {
   HouseSimple,
-  Buildings,
+  Factory,
   Basket,
   Receipt,
   UserCircle,
@@ -22,7 +22,7 @@ export default function sliderData() {
       link: "/companies/overview",
     },
     {
-      icon: <Buildings size={iconSize} />,
+      icon: <Factory size={iconSize} />,
       title: "Companies",
       link: "/companies/company/?page=1&size=10&query=",
     },
@@ -67,8 +67,6 @@ export default function sliderData() {
       link: "/companies/technologies",
     },
   ];
-
-
 
   return data;
 }

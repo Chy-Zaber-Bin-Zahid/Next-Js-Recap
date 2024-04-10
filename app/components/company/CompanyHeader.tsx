@@ -48,6 +48,10 @@ function CompanyHeader() {
     setCurrentPage(1);
   };
 
+  const handleEditRoute = (idx) => {
+    router.push(`${currentPath}/edit/${data?.data.data[idx]._id}`);
+  };
+
   return (
     <>
       <div className="flex flex-col p-6">
@@ -122,7 +126,14 @@ function CompanyHeader() {
                   <div className="flex gap-2 justify-start items-center">
                     <User size={18} /> 1
                   </div>
-                  <div>Details</div>
+                  <CvaClsxButton
+                    intent="transparent"
+                    size="transparent"
+                    className="w-fit text-gray-500"
+                    onClick={() => handleEditRoute(idx)}
+                  >
+                    Edit
+                  </CvaClsxButton>
                 </div>
               ))}
           </>

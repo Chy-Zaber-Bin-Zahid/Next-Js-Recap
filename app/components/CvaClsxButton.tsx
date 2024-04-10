@@ -4,8 +4,14 @@ import clsx from "clsx";
 import React, { ReactNode } from "react";
 
 interface ButtonProps {
-  intent: "primary" | "secondary" | "slider" | "white";
-  size: "small" | "medium" | "large";
+  intent:
+    | "primary"
+    | "secondary"
+    | "slider"
+    | "white"
+    | "transparent"
+    | "charge";
+  size: "small" | "medium" | "large" | "transparent" | "charge";
   disabled?: boolean;
   animate?: boolean;
   onClick?: () => void;
@@ -14,18 +20,22 @@ interface ButtonProps {
   children: ReactNode;
 }
 
-const button = cva(["bg-[#3A83E9]", "rounded-md"], {
+const button = cva(["rounded-md"], {
   variants: {
     intent: {
       primary: ["bg-red-600", "border-transparent"],
       secondary: ["bg-[#3A83E9]", "text-white"],
       slider: ["bg-black", "text-white"],
       white: ["bg-[#F8F9FB]", "text-black"],
+      transparent: ["bg-white", "text-black"],
+      charge: ["bg-[#115955]", "text-white"],
     },
     size: {
       small: ["text-sm", "py-1", "px-2"],
       medium: ["text-base", "py-2", "px-4"],
       large: ["text-lg", "py-1", "px-4"],
+      transparent: ["text-md"],
+      charge: ["text-base", "py-2"],
     },
   },
 });
