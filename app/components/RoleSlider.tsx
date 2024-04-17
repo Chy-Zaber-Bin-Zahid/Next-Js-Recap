@@ -13,8 +13,13 @@ import makeAnimated from "react-select/animated";
 type RoleSliderProps = {
   sliderStatus: boolean;
   setSliderStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  submitMock?: any;
 };
-function RoleSlider({ sliderStatus, setSliderStatus }: RoleSliderProps) {
+function RoleSlider({
+  sliderStatus,
+  setSliderStatus,
+  submitMock,
+}: RoleSliderProps) {
   const axiosInstance = ConfigureAxiosInstance();
   const animatedComponents = makeAnimated();
 
@@ -54,6 +59,7 @@ function RoleSlider({ sliderStatus, setSliderStatus }: RoleSliderProps) {
 
   const onSubmit = (data: any) => {
     console.log(data);
+    submitMock(data);
   };
 
   // console.log(errors);
@@ -106,6 +112,7 @@ function RoleSlider({ sliderStatus, setSliderStatus }: RoleSliderProps) {
                 </label>
                 <div className=" flex gap-2 justify-center items-center w-full">
                   <input
+                    id={`role.${index}.name`}
                     className="rounded-md p-2 border w-full"
                     type="text"
                     placeholder="Role name"
@@ -121,6 +128,7 @@ function RoleSlider({ sliderStatus, setSliderStatus }: RoleSliderProps) {
                       }}
                       className="text-red-600 cursor-pointer hover:animate-pulse"
                       size={20}
+                      data-testid={`trashButton`}
                     />
                   )}
                 </div>
@@ -136,11 +144,12 @@ function RoleSlider({ sliderStatus, setSliderStatus }: RoleSliderProps) {
                 )}
 
               <div className="flex w-full">
-                <label htmlFor="" className="w-1/3">
+                <label htmlFor={`role.${index}.details`} className="w-1/3">
                   Role details
                 </label>
                 <div className="flex flex-col gap-3 w-full">
                   <textarea
+                  id = {`role.${index}.details`}
                     className="resize-none  rounded-md p-2 h-20 border"
                     placeholder="Role details"
                     defaultValue={field.details}
