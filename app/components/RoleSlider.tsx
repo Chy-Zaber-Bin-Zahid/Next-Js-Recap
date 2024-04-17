@@ -1,19 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, PlusCircle, Trash, Warning } from "@phosphor-icons/react";
+import { X, PlusCircle, Trash } from "@phosphor-icons/react";
 import CvaClsxButton from "./CvaClsxButton";
 import clsx from "clsx";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import AsyncSelect from "react-select/async";
 import ConfigureAxiosInstance from "../utils/axiosConfig/axiosConfig";
 import makeAnimated from "react-select/animated";
 
-function RoleSlider() {
-  const [sliderStatus, setSliderStatus] = useState(false);
+type RoleSliderProps = {
+  sliderStatus: boolean;
+  setSliderStatus: React.Dispatch<React.SetStateAction<boolean>>;
+};
+function RoleSlider({ sliderStatus, setSliderStatus }: RoleSliderProps) {
   const axiosInstance = ConfigureAxiosInstance();
   const animatedComponents = makeAnimated();
 
@@ -55,8 +56,7 @@ function RoleSlider() {
     console.log(data);
   };
 
-
-  console.log(errors);
+  // console.log(errors);
 
   return (
     <>
@@ -78,11 +78,10 @@ function RoleSlider() {
         )}
       >
         <div className="flex flex-col justify-between items-start p-6 pb-4 relative bg-[#F8F9FB]">
-          <h1 className="font-semibold text-xl">
-            Add Member Profile
-          </h1>
+          <h1 className="font-semibold text-xl">Add Member Profile</h1>
           <p className="text-sm text-[#9DA3AA] ">
-          Get started by filling in the information to create new member profile.
+            Get started by filling in the information to create new member
+            profile.
           </p>
           <X
             onClick={() => {
@@ -101,69 +100,67 @@ function RoleSlider() {
               key={field.id}
               className="bg-[#F8F9FB]  flex flex-col justify-center items-center gap-6 p-6  rounded-md"
             >
-             
-                  <div className="flex w-full">
-                    <label htmlFor="" className="w-1/3">
-                      Role name <span className="text-red-600">*</span>
-                    </label>
-                    <div className=" flex gap-2 justify-center items-center w-full">
-                      <input
-                        className="rounded-md p-2 border w-full"
-                        type="text"
-                        placeholder="Role name"
-                        defaultValue={field.name}
-                        {...register(`role.${index}.name`, {
-                          required: "Role name is required!",
-                        })}
-                      />
-                      {index !== 0 && (
-                        <Trash
-                          onClick={() => {
-                            remove(index);
-                          }}
-                          className="text-red-600 cursor-pointer hover:animate-pulse"
-                          size={20}
-                        />
-                      )}
-                    </div>
-                  </div>
+              <div className="flex w-full">
+                <label htmlFor={`role.${index}.name`} className="w-1/3">
+                  Role name <span className="text-red-600">*</span>
+                </label>
+                <div className=" flex gap-2 justify-center items-center w-full">
+                  <input
+                    className="rounded-md p-2 border w-full"
+                    type="text"
+                    placeholder="Role name"
+                    defaultValue={field.name}
+                    {...register(`role.${index}.name`, {
+                      required: "Role name is required!",
+                    })}
+                  />
+                  {index !== 0 && (
+                    <Trash
+                      onClick={() => {
+                        remove(index);
+                      }}
+                      className="text-red-600 cursor-pointer hover:animate-pulse"
+                      size={20}
+                    />
+                  )}
+                </div>
+              </div>
 
-                  {errors &&
-                    errors.role &&
-                    errors.role[index] &&
-                    errors.role[index].name && (
-                      <p className="text-red-600">
-                        {errors.role[index].name.message}
-                      </p>
-                    )}
+              {errors &&
+                errors.role &&
+                errors.role[index] &&
+                errors.role[index].name && (
+                  <p className="text-red-600">
+                    {errors.role[index].name.message}
+                  </p>
+                )}
 
-                  <div className="flex w-full">
-                    <label htmlFor="" className="w-1/3">
-                      Role details
-                    </label>
-                    <div className="flex flex-col gap-3 w-full">
-                      <textarea
-                        className="resize-none  rounded-md p-2 h-20 border"
-                        placeholder="Role details"
-                        defaultValue={field.details}
-                        {...register(`role.${index}.details`, {
-                          required: "Role details is required!",
-                        })}
-                      />
-                      <p className="text-[#9DA3AA] text-sm">
-                        Keep role details under 250 characters.
-                      </p>
-                    </div>
-                  </div>
-                  {errors &&
-                    errors.role &&
-                    errors.role[index] &&
-                    errors.role[index].details && (
-                      <p className="text-red-600">
-                        {errors.role[index].details.message}
-                      </p>
-                    )}
-               
+              <div className="flex w-full">
+                <label htmlFor="" className="w-1/3">
+                  Role details
+                </label>
+                <div className="flex flex-col gap-3 w-full">
+                  <textarea
+                    className="resize-none  rounded-md p-2 h-20 border"
+                    placeholder="Role details"
+                    defaultValue={field.details}
+                    {...register(`role.${index}.details`, {
+                      required: "Role details is required!",
+                    })}
+                  />
+                  <p className="text-[#9DA3AA] text-sm">
+                    Keep role details under 250 characters.
+                  </p>
+                </div>
+              </div>
+              {errors &&
+                errors.role &&
+                errors.role[index] &&
+                errors.role[index].details && (
+                  <p className="text-red-600">
+                    {errors.role[index].details.message}
+                  </p>
+                )}
             </div>
           ))}
 
