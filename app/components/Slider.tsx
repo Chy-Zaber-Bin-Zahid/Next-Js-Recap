@@ -47,7 +47,7 @@ function Slider() {
             <Link
               key={index}
               href={data.link}
-              className={`flex gap-3 justify-start items-center p-2 transition-all duration-300 hover:bg-[#E8F1FE] hover:text-[#3A83E9] cursor-pointer hover:rounded-md font-semibold w-60 ${
+              className={`flex gap-3 justify-start items-center p-2 transition-all duration-300 hover:bg-[#E8F1FE] hover:text-[#3A83E9] cursor-pointer hover:rounded-md font-semibold w-60 rounded-md ${
                 currentUrl ===
                   (data.link.includes("?")
                     ? data.link.split("/?")[0]
@@ -66,9 +66,9 @@ function Slider() {
             <Link
               key={index}
               href={data.link}
-              className={`flex gap-3 justify-start items-center p-2 transition-all duration-300 hover:bg-[#E8F1FE] hover:text-[#3A83E9] cursor-pointer hover:rounded-md font-semibold w-60w-60 ${
+              className={`flex gap-3 justify-start items-center p-2 transition-all duration-300 hover:bg-[#E8F1FE] hover:text-[#3A83E9] cursor-pointer hover:rounded-md font-semibold w-60w-60 rounded-md ${
                 index === 0 && "mt-2"
-              } ${currentUrl === data.link && "bg-[#E8F1FE] text-[#3A83E9]"}`}
+              } ${currentUrl === data.link && "bg-[#E8F1FE] text-[#3A83E9] "}`}
             >
               {data.icon}
               <h1 className="text-sm">{data.title}</h1>

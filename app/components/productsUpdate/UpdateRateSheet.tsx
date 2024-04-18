@@ -1,25 +1,20 @@
 "use client";
 import React, { useState } from "react";
-import Select, { components } from "react-select";
+import { components } from "react-select";
 import AsyncSelect from "react-select/async";
-import {
-  CheckCircle,
-  Copy,
-  MinusCircle,
-  UserCircle,
-  CalendarBlank,
-} from "@phosphor-icons/react";
-import DatePicker from "react-datepicker";
+import { CheckCircle, UserCirclePlus, UserCircle } from "@phosphor-icons/react";
 import "react-datepicker/dist/react-datepicker.css";
 import ConfigureAxiosInstance from "@/app/utils/axiosConfig/axiosConfig";
-import { clsx } from "clsx";
+import MultipleInput from "./MultipleInput";
 
 type Props = {};
 
 const UpdateRateSheet = (props: Props) => {
   const [rateData, setRateData] = useState<any>(null);
-
-  const [buttonText, setButtonText] = useState("Assign members");
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [saveData, setSaveData] = useState<Array<any>>([]);
+  const [buttonText, setButtonText] = useState<String>("Assign members");
 
   const handleButtonClick = () => {
     if (buttonText === "Assign members") {
@@ -32,19 +27,15 @@ const UpdateRateSheet = (props: Props) => {
   };
 
   const options = [
-    { value: "sheet 1", label: "Rate Sheet 1" },
-    { value: "sheet 2", label: "Rate Sheet 2" },
-    { value: "sheet 3", label: "Rate Sheet 3" },
+    { value: "FULL_TIME", label: "Full time" },
+    { value: "PART_TIME", label: "Part time" },
   ];
 
   const Control = ({ children, ...props }: any) => (
     <components.Control {...props}>
-      <UserCircle size={20} className="m-1.5" /> {children}
+      <UserCircle size={20} className="ml-1.5" /> {children}
     </components.Control>
   );
-
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
 
   const axiosInstance = ConfigureAxiosInstance();
 
@@ -73,6 +64,18 @@ const UpdateRateSheet = (props: Props) => {
         `/rate-sheet/details/${selectedOption.value}`
       );
       setRateData((prev) => response.data);
+      console.log(response.data.teamStructures);
+      const updatedSaveData = response.data.teamStructures.map((data: any) => ({
+        teamRateId: data.role._id,
+        employeeRoleId: data.employeeRoleId,
+        employeeId: "",
+        employmentStatus: "",
+        internalRate: data.internalRate,
+        billRate: data.billRate,
+        startDate: "",
+        endDate: "",
+      }));
+      setSaveData(updatedSaveData);
     } catch (error) {
       console.error("Error fetching rate sheet details:", error);
     }
@@ -90,7 +93,7 @@ const UpdateRateSheet = (props: Props) => {
     }));
   };
 
-  console.log(rateData);
+  // console.log(saveData);
 
   return (
     <div className="w-[90%] mx-auto">
@@ -117,101 +120,31 @@ const UpdateRateSheet = (props: Props) => {
                 With {rateData?.teamStructures?.length || 0} roles
               </p>
             </div>
-            <div className=" flex gap-2 justify-center items-center font-semibold text-[#0C66E4] text-sm ">
-              <CheckCircle size={16} />
+            <div className=" flex gap-1 justify-center items-center font-semibold text-[#0C66E4] text-sm ">
+              {buttonText === "Save members" ? (
+                <CheckCircle size={16} />
+              ) : (
+                <UserCirclePlus size={16} />
+              )}
               <button onClick={handleButtonClick}>{buttonText}</button>
             </div>
           </div>
-          {buttonText === "Save members" && rateData?.teamStructures.map((data: any, idx: number) => (
-            <div
-              key={data._id}
-              className={clsx(
-                "grid grid-cols-2 gap-x-6 gap-y-2 px-8 py-4 pb-6",
-                {
-                  "border-t": idx !== 0,
-                }
-              )}
-            >
-              <div className="col-span-2 flex flex-col gap-1 border-b pb-2 text-lg ">
-                <div className="flex justify-between items-center gap-2 font-semibold">
-                  <h1>{data.role.name}</h1>
-                  <div className="flex gap-4 justify-center items-center">
-                    <Copy size={18} />
-                    <p className="text-sm">Duplicate role</p>
-                    <MinusCircle
-                      onClick={() => handleRemoveRole(data._id)}
-                      className="text-red-500 cursor-pointer hover:animate-spin"
-                      size={16}
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-start items-center gap-4 text-[#757D87] text-xs">
-                  <p>Internal Rate: $ {data.internalRate} /hr</p>
-                  <p>Billing Rate: $ {data.billRate} /hr</p>
-                </div>
-              </div>
-              <div className=" flex flex-col gap-2 ">
-                <h1 className="font-semibold">
-                  Team Member <span className="text-red-500">*</span>
-                </h1>
-                <Select
-                  {...props}
-                  components={{ Control }}
-                  placeholder={
-                    <div className="flex items-center text-sm gap-2 font-normal">
-                      <span>Select</span>
-                    </div>
-                  }
-                  className="w-full"
-                  options={options}
-                />
-              </div>
-              <div className=" flex flex-col gap-2 pb-4">
-                <h1 className="font-semibold">
-                  Work Type <span className="text-red-500">*</span>
-                </h1>
-                <Select
-                  placeholder={
-                    <div className=" text-sm  font-normal">Select</div>
-                  }
-                  className="w-full"
-                  options={options}
-                />
-              </div>
-              <div className="font-semibold flex flex-col gap-2 ">
-                <h1>
-                  Start Date <span className="text-red-500">*</span>
-                </h1>
-                <div className="relative font-normal text-sm">
-                  <DatePicker
-                    className="pl-8 py-2.5 border rounded w-full"
-                    placeholderText={`Pick a start date`}
-                    selected={startDate}
-                    onChange={(date: any) => setStartDate(date)}
-                  />
-                  <CalendarBlank
-                    className="absolute top-2.5 left-2 cursor-pointer"
-                    size={20}
-                  />
-                </div>
-              </div>
-              <div className="font-semibold flex flex-col gap-2 ">
-                <h1>End Date</h1>
-                <div className=" relative font-normal text-sm">
-                  <DatePicker
-                    className="pl-8 py-2.5 border rounded w-full"
-                    placeholderText={`Pick a end date`}
-                    selected={endDate}
-                    onChange={(date: any) => setEndDate(date)}
-                  />
-                  <CalendarBlank
-                    className="absolute top-2.5 left-2 cursor-pointer"
-                    size={20}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
+          {buttonText === "Save members" &&
+            rateData?.teamStructures.map((data: any, idx: number) => (
+              <MultipleInput
+                key={data._id}
+                data={data}
+                idx={idx}
+                handleRemoveRole={handleRemoveRole}
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+                options={options}
+                setSaveData={setSaveData}
+                saveData={saveData}
+              />
+            ))}
         </div>
       )}
     </div>
