@@ -13,7 +13,7 @@ import makeAnimated from "react-select/animated";
 type RoleSliderProps = {
   sliderStatus: boolean;
   setSliderStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  submitMock?: any;
+  submitMock?: (data: any) => void;
 };
 function RoleSlider({
   sliderStatus,
@@ -59,7 +59,7 @@ function RoleSlider({
 
   const onSubmit = (data: any) => {
     console.log(data);
-    submitMock(data);
+    submitMock?.(data);
   };
 
   // console.log(errors);
@@ -149,7 +149,7 @@ function RoleSlider({
                 </label>
                 <div className="flex flex-col gap-3 w-full">
                   <textarea
-                  id = {`role.${index}.details`}
+                    id={`role.${index}.details`}
                     className="resize-none  rounded-md p-2 h-20 border"
                     placeholder="Role details"
                     defaultValue={field.details}
