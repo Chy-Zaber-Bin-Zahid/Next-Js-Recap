@@ -17,6 +17,7 @@ type MultipleInputProps = {
   options: { value: string; label: string }[];
   setSaveData: (data: Array<any>) => void;
   saveData: any;
+  buttonText: string;
 };
 
 const MultipleInput = ({
@@ -30,9 +31,9 @@ const MultipleInput = ({
   options,
   setSaveData,
   saveData,
+  buttonText
 }: MultipleInputProps) => {
   const [rateData, setRateData] = useState<any>(null);
-  const [buttonText, setButtonText] = useState("Assign members");
   const axiosInstance = ConfigureAxiosInstance();
 
   const handleWorkTypeChange = (selectedOption: any) => {
@@ -106,6 +107,7 @@ const MultipleInput = ({
     <div
       className={clsx("grid grid-cols-2 gap-x-6 gap-y-2 px-8 py-4 pb-6", {
         "border-t": idx !== 0,
+        "hidden": buttonText === "Save members"
       })}
     >
       <div className="col-span-2 flex flex-col gap-1 border-b pb-2 text-lg ">

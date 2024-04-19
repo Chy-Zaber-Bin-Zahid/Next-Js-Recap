@@ -129,22 +129,22 @@ const UpdateRateSheet = (props: Props) => {
               <button onClick={handleButtonClick}>{buttonText}</button>
             </div>
           </div>
-          {buttonText === "Save members" &&
-            rateData?.teamStructures.map((data: any, idx: number) => (
-              <MultipleInput
-                key={data._id}
-                data={data}
-                idx={idx}
-                handleRemoveRole={handleRemoveRole}
-                startDate={startDate}
-                setStartDate={setStartDate}
-                endDate={endDate}
-                setEndDate={setEndDate}
-                options={options}
-                setSaveData={setSaveData}
-                saveData={saveData}
-              />
-            ))}
+          {rateData?.teamStructures.map((data: any, idx: number) => (
+            <MultipleInput
+              key={data._id}
+              data={data}
+              idx={idx}
+              handleRemoveRole={handleRemoveRole}
+              startDate={startDate}
+              setStartDate={setStartDate}
+              endDate={endDate}
+              setEndDate={setEndDate}
+              options={options}
+              setSaveData={setSaveData}
+              saveData={saveData}
+              buttonText={buttonText}
+            />
+          ))}
         </div>
       )}
     </div>

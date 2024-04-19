@@ -21,3 +21,7 @@
 .helvetica-font {
   font-family: Helvetica, sans-serif;
 }
+
+.recharts-cartesian-axis-tick-line[orientation="left"] {
+  display: none;
+}
